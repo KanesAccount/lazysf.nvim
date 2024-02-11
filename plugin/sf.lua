@@ -51,6 +51,8 @@ local function set_hotkeys()
 	nmap("<leader><leader>S", require("sf.org").set_global_target_org, "[S]et global target_org")
 	nmap("<leader><leader>f", require("sf.org").fetch_org_list, "[F]etch orgs info")
 
+	nmap("<leader><leader>s", require("sf.org").search_custom_objects, "[s]earch custom object metadata")
+
 	nmap("<leader>mr", require("sf.org").retrieve_metadata_lists, "[M]etadata retrieve")
 	nmap("<leader>ml", require("sf.org").select_md_to_retrieve, "[M]etadata [L]ist")
 	nmap("<leader>mt", require("sf.org").retrieve_apex_under_cursor, "[m]etadata [T]his retrieve")

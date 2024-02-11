@@ -49,6 +49,10 @@ function M.retrieve_apex_under_cursor()
 	H.retrieve_apex_under_cursor()
 end
 
+function M.search_custom_objects()
+	H.search_custom_objects()
+end
+
 -- Helper --------------------
 
 local pickers = require("telescope.pickers")
@@ -349,13 +353,34 @@ H.retrieve_metadata_lists = function()
 
 	for _, type in pairs(H.types_to_retrieve) do
 		local md_file = string.format("%s/%s_%s.json", md_folder, type, S.target_org)
-
 		local cmd = string.format("sf org list metadata -m %s -o %s -f %s", type, S.target_org, md_file)
 		local msg = string.format("%s retrieved", type)
 		local err_msg = string.format("%s retrieve failed: %s", type, md_file)
 
 		U.job_call(cmd, msg, err_msg)
 	end
+end
+
+H.search_custom_objects = function(opts)
+	opts = opts or {}
+
+	local root = U.get_sf_root()
+	local object_folder = root .. "/force-app/main/default/objects"
+
+	if vim.fn.isdirectory(object_folder) == 0 then
+		return vim.notify("Could not find Custom Objects! Are you in an sfdx project?", vim.log.levels.ERROR)
+	end
+
+	require("telescope.builtin").find_files({
+		prompt_title = "Custom Objects",
+		results_title = "Field Results",
+		path_display = { "smart" },
+		search_dirs = {
+			object_folder,
+		},
+		layout_strategy = "horizontal",
+		layout_config = { preview_width = 0.55, width = 0.75 },
+	})
 end
 
 return M
