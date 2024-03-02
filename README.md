@@ -1,34 +1,30 @@
-# Sf.nvim
+# Lazysf.nvim
 
-Offer basic functionalities for Apex to interact with Salesforce org
-
-## Demostration
-
-https://github.com/xixiaofinland/sf.nvim/assets/13655323/2811b1ac-d2e7-49c2-a9ce-0a84f451e3f8
-
-## Usage
-
-Maybe the best way is to take a peek at [my latest
-keybindings](https://github.com/xixiaofinland/dotfiles/blob/main/.config/nvim/after/ftplugin/apex.lua)
+Offer basic functionalities for interacting with the [SalesForce CLI](https://github.com/salesforcecli/cli) inside of Neovim.
 
 ## Modules
 
-- `sf.org` target org
+- `sf.org` 
+	- Authenticate with a target org `require("sf.org").set_target_org`
+	- Fetch a list of all available orgs `require("sf.org").fetch_org_list`
+	- Search custom objects `require("sf.org").search_custom_objects`
+	- Fetch Org Metadata `require("sf.org").retrieve_metadata_lists` & `require("sf.org").select_md_to_retrieve`
+	- Diff against Org `require("sf.org").diff_in_target_org`
 - `sf.term` integrated terminal
-- `sf.ts` treesitter
-- `sf.test` Apex test
+	- Toggle terminal `require("sf.term").toggle`
+- `sf.test` Apex test module to aid in running Apex tests
+	- Open test selection (from a Test.cls) `require("sf.test").open`
 
-## relative new features
+## Utils
+- `sf.ts` treesitter functions for grabbing Apex Tests & Classes
+
+## Latest Updates
+
+### Query Custom Object Fields
+`require("sf.org").search_custom_objects` opens a list of Custom Objects in your current project file in Telescope.
 
 ### Multi-select tests to run
 If the current buffer is a Test Apex file, `require("sf.test").open` opens a temporary buffer which lists all tests.
 
 ### Re-run the previous selection in the temporary buffer
 `require("sf.term").repeatLastTests` runs the last selected tests
-
-
-## Other video (out-dated)
-
-Made on 13-01-2024
-
-[![Demostration](https://img.youtube.com/vi/qrJmjJFPALY/0.jpg)](https://youtu.be/qrJmjJFPALY?si=QRq_fNxXfP2ThcBy&t=846)
